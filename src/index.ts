@@ -1,6 +1,7 @@
 import express from 'express';
 import getUserController from './controllers/getUserController';
 import getUsersController from './controllers/getUsersController';
+import getUserDetailController from './controllers/getUserDetailController';
 import cors from 'cors';
 
 const PORT = 8000;
@@ -31,6 +32,15 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/users/:userId', async (req, res) => {
     try {
         res.status(200).send(await getUserController(Number(req.params.userId)))
+    }
+     catch(e) {
+         res.status(500)
+     }
+})
+
+app.get('/users/detail/:userId', async (req, res) => {
+    try {
+        res.status(200).send(await getUserDetailController(Number(req.params.userId)))
     }
      catch(e) {
          res.status(500)
